@@ -1,6 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:havier_personal_website/ui/attic_box.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'ui/intro_text.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,7 +36,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: const Color.fromRGBO(173, 125, 52, 0.8),
         centerTitle: true,
         title: Text(
-          'Havier\'s Dev. Oddities Attic',
+          'Havier\'s Dev. Attic',
           style: TextStyle(
               fontSize: 24,
               color: Colors.white,
@@ -54,21 +56,24 @@ class _MyHomePageState extends State<MyHomePage> {
               ]),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 30, horizontal: 100),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: SingleChildScrollView(
-          // scrollDirection: Axis.both,
-          child: Scrollbar(
+          scrollDirection: Axis.horizontal,
+          child: Center(
             child: Column(
               // mainAxisSize: MainAxisSize.min,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
+                    const SizedBox(width: 100),
                     const SizedBox(
                       width: 500,
                       child: IntroText(),
                     ),
-                    Image.asset('assets/images/1.png'),
+                    const SizedBox(width: 100),
+                    AtticBox(),
                   ],
                 ),
               ],
@@ -80,79 +85,3 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class IntroText extends StatelessWidget {
-  const IntroText({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        const Text(
-          "ABOUT ME: \n ",
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontStyle: FontStyle.normal,
-              fontSize: 30),
-        ),
-        const SelectableText(
-          "I'm Havier, a self-proclaimed innovative software "
-              "engineer who also works as a Software Developer for the "
-              "Department of Natural Resources and Environment Tasmania."
-              " In my free time, I love to dabble in some funny "
-              "development projects, and I've gathered a few of my "
-              "favorites here for my friends, curious visitors, and "
-              "anyone else who might be interested. Take a peek inside "
-              "my 'attic' and hover your mouse over some items to "
-              "discover some fun surprises! And if you'd rather a "
-              "straight way, the below list is here for you.",
-          textAlign: TextAlign.justify,
-          style: TextStyle(
-            fontSize: 20,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-        SelectableText.rich(
-          TextSpan(
-              style: const TextStyle(
-                fontSize: 20,
-                fontStyle: FontStyle.italic,
-              ),
-              children: <TextSpan>[
-                const TextSpan(text: " \nMy "),
-                TextSpan(
-                  text: "LinkedIn",
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () async {
-                      await launchUrl(Uri.parse("https://www.linkedin"
-                          ".com/in/huaizhi-dai/"));
-                    },
-                  style: const TextStyle(
-                    color: Colors.cyan,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-                const TextSpan(text: " and "),
-                TextSpan(
-                  text: "Github",
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () async {
-                      await launchUrl(Uri.parse("https://github"
-                          ".com/HavierD"));
-                    },
-                  style: const TextStyle(
-                    color: Colors.cyan,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-                const TextSpan(
-                    text: " are here, if you are interested in "
-                        "them."),
-              ]),
-        ),
-      ],
-    );
-  }
-}
